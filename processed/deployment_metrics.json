@@ -1,0 +1,10 @@
+{
+    "model_architecture": "efficientnet_b0_transfer_learning",
+    "hardware_accelerator": "CPU",
+    "average_latency_ms": 0.61,
+    "throughput_fps": 1652.85,
+    "memory_footprint_mb": 180.0,
+    "total_validation_cycles": 105,
+    "success_rate": 100.0,
+    "validation_timestamp": "2026-06-10T05:26:12Z"
+}

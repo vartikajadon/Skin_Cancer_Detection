@@ -1,0 +1,25 @@
+image_name,image_id,predicted_class,confidence,error
+ISIC_0024324.jpg,ISIC_0024324,nv,0.8195,
+ISIC_0024381.jpg,ISIC_0024381,nv,0.8655,
+ISIC_0024420.jpg,ISIC_0024420,nv,0.7852,
+ISIC_0024408.jpg,ISIC_0024408,nv,0.8655,
+ISIC_0024323.jpg,ISIC_0024323,bkl,0.7627,
+ISIC_0024376.jpg,ISIC_0024376,nv,0.8495,
+ISIC_0024327.jpg,ISIC_0024327,nv,0.8655,
+ISIC_0024407.jpg,ISIC_0024407,nv,0.8705,
+ISIC_0024395.jpg,ISIC_0024395,mel,0.8369,
+ISIC_0024393.jpg,ISIC_0024393,bkl,0.8045,
+ISIC_0024306.jpg,ISIC_0024306,nv,0.8195,
+ISIC_0024455.jpg,ISIC_0024455,bcc,0.819,
+ISIC_0024388.jpg,ISIC_0024388,nv,0.8842,
+ISIC_0024339.jpg,ISIC_0024339,bkl,0.8045,
+ISIC_0024316.jpg,ISIC_0024316,mel,0.8191,
+ISIC_0024353.jpg,ISIC_0024353,nv,0.8705,
+ISIC_0024350.jpg,ISIC_0024350,bkl,0.7627,
+ISIC_0024423.jpg,ISIC_0024423,nv,0.8195,
+ISIC_0024361.jpg,ISIC_0024361,mel,0.8191,
+ISIC_0024406.jpg,ISIC_0024406,mel,0.8191,
+ISIC_0024418.jpg,ISIC_0024418,nv,0.8223,
+non_existent_lesion.jpg,non_existent_lesion,,0.0,Image file not found: C:\Users\varti\OneDrive\Desktop\deep learning final\data\non_existent_lesion.jpg
+unsupported_doc.pdf,unsupported_doc,,0.0,Image file not found: C:\Users\varti\OneDrive\Desktop\deep learning final\data\unsupported_doc.pdf
+ISIC_0099999.jpg,ISIC_0099999,,0.0,Corrupted or invalid image file. Failed to decode pixel arrays from: ISIC_0099999.jpg

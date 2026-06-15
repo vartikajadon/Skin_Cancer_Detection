@@ -1,0 +1,15 @@
+{
+    "model_architecture": "efficientnet_b0_transfer_learning",
+    "num_classes": 7,
+    "input_shape": [
+        224,
+        224,
+        3
+    ],
+    "best_epoch": 17,
+    "best_val_loss": 0.28,
+    "trainable_parameters": 1564295,
+    "non_trainable_parameters": 4133131,
+    "total_parameters": 5697426,
+    "status": "best_model_checkpoint_saved"
+}

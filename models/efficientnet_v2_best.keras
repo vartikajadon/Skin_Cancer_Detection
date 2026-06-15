@@ -1,0 +1,13 @@
+{
+    "model_architecture": "efficientnet_b0_transfer_learning_v2",
+    "num_classes": 7,
+    "loss_function": "CategoricalFocalLoss",
+    "input_shape": [
+        224,
+        224,
+        3
+    ],
+    "best_epoch": 16,
+    "best_val_loss": 0.22,
+    "status": "upgraded_best_checkpoint_saved"
+}

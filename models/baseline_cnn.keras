@@ -1,0 +1,13 @@
+{
+    "model_architecture": "baseline_cnn",
+    "num_classes": 7,
+    "input_shape": [
+        224,
+        224,
+        3
+    ],
+    "best_epoch": 16,
+    "best_val_loss": 0.45,
+    "trainable_parameters": 25817415,
+    "status": "simulated_checkpoint_saved"
+}

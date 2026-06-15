@@ -1,0 +1,4 @@
+{
+    "model_architecture": "efficientnet_b0_transfer_learning",
+    "model_weights": {}
+}

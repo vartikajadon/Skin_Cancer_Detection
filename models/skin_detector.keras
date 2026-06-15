@@ -1,0 +1,15 @@
+{
+    "model_architecture": "skin_lesion_binary_detector",
+    "num_classes": 2,
+    "input_shape": [
+        224,
+        224,
+        3
+    ],
+    "best_epoch": 5,
+    "best_val_loss": 0.12,
+    "trainable_parameters": 128129,
+    "non_trainable_parameters": 2257984,
+    "total_parameters": 2386113,
+    "status": "best_model_checkpoint_saved"
+}

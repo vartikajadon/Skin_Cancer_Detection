@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-Powered Skin Cancer Detection System. A professional clinical-grade UI skeleton for scanning, analyzing, and tracking dermatological lesions.">
+  <title>Skin Cancer Detection System - AI Dermatology Portal</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <div class="brand-logo">
+        <i class="fa-solid fa-laptop-medical"></i>
+      </div>
+      <span class="brand-title">Skin Cancer Detection System</span>
+    </div>
+    
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#disease-info" class="nav-link">Disease Info</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#upload-section" class="nav-cta">Analyze Lesion</a></li>
+    </ul>
+
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Main Content Layout -->
+  <main>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="hero-content">
+        <span class="badge">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> AI Deep Learning Model
+        </span>
+        <h1 class="hero-title">AI-Powered Skin Cancer Detection</h1>
+        <p class="hero-desc">
+          Leverage deep learning algorithms to screen dermatological lesions. Upload dermoscopic images of moles or skin marks for rapid classification and clinical-grade visual indicators.
+        </p>
+        <div class="hero-buttons">
+          <a href="#upload-section" class="btn btn-primary">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Upload Image
+          </a>
+          <a href="#about" class="btn btn-secondary">
+            Learn More
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-illustration">
+        <!-- Promo Video instead of Scan Simulation -->
+        <div class="scan-visualizer">
+          <video src="assets/promo.mp4" autoplay loop muted playsinline controls style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--border-radius-lg); display: block; outline: none; border: none;"></video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="section" id="upload-section">
+      <div class="section-header">
+        <span class="section-badge">Analyze</span>
+        <h2 class="section-title">Upload Lesion Image</h2>
+        <p class="section-desc">
+          Upload clear close-up images of your skin lesion. Images should be well-lit, in focus, and centered for accuracy.
+        </p>
+      </div>
+
+      <div class="upload-section">
+        <div class="upload-container">
+          <!-- Drag and Drop Zone -->
+          <div class="upload-drag-zone" id="drop-zone">
+            <div class="upload-icon-box">
+              <i class="fa-solid fa-images"></i>
+            </div>
+            <p class="upload-drag-text">Drag & drop your skin image here</p>
+            <p class="upload-subtext">Supports JPEG, JPG, PNG (Max 5MB)</p>
+            
+            <button class="btn btn-primary" onclick="document.getElementById('file-input').click();">
+              <i class="fa-solid fa-folder-open"></i> Browse Files
+            </button>
+            <input type="file" id="file-input" class="file-input" accept="image/*">
+
+            <!-- File Preview Card (Hidden by default) -->
+            <div class="file-preview-card" id="file-preview">
+              <img src="" alt="Lesion Preview" class="preview-thumbnail" id="preview-img">
+              <div class="file-info">
+                <p class="file-name" id="file-name">filename.jpg</p>
+                <p class="file-size" id="file-size">1.2 MB</p>
+              </div>
+              <button class="btn-remove-file" id="btn-remove" title="Remove File">
+                <i class="fa-solid fa-circle-xmark"></i>
+              </button>
+            </div>
+
+            <!-- Analysis Progress bar (Hidden by default) -->
+            <div class="analysis-progress-container" id="progress-container">
+              <div class="progress-bar-wrapper">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+              </div>
+              <div class="analysis-status-text">
+                <span id="status-label">Extracting features...</span>
+                <span id="status-percent">0%</span>
+              </div>
+            </div>
+
+            <!-- Mock Results Panel (Hidden by default) -->
+            <div class="mock-results-card" id="results-card">
+              <div class="results-header">
+                <i class="fa-solid fa-square-poll-vertical" style="color: var(--color-primary); font-size: 1.25rem;"></i>
+                <span class="results-title">Analysis Assessment</span>
+              </div>
+              <div class="lesion-result-wrapper">
+                <h3 class="mock-lesion-type" id="lesion-result" style="cursor: help; text-decoration: underline dotted var(--color-primary);">Nevus (Benign Mole)</h3>
+                <div class="lesion-tooltip" id="lesion-tooltip">
+                  A Nevus (Benign Mole) is a common, non-cancerous skin growth formed by clusters of melanocytes. They are typically uniform in shape and color.
+                </div>
+              </div>
+              <p class="mock-confidence" id="lesion-confidence">Confidence Score: 92.4%</p>
+              
+              <!-- Clinical Meta Display (Hidden by default, shown when inputs are provided) -->
+              <div class="results-clinical-meta" id="results-clinical-meta" style="margin-bottom: 1.25rem; font-size: 0.85rem; color: var(--color-text-muted); background: rgba(255, 255, 255, 0.6); padding: 0.75rem; border-radius: var(--border-radius-sm); border: 1px solid var(--color-border); display: none;">
+                <!-- Filled dynamically by app.js -->
+              </div>
+              
+              <!-- Dynamic Top 3 Predictions Progress Bars Container -->
+              <div class="top-predictions-container" id="top-predictions-list">
+                <!-- Will be populated dynamically by app.js -->
+              </div>
+
+              <!-- Grad-CAM Explainability Visualization -->
+              <div class="gradcam-container" id="gradcam-container" style="display: none;">
+                <div class="gradcam-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-eye" style="color: var(--color-primary);"></i>
+                    <span>Grad-CAM Explainability Maps</span>
+                  </div>
+                  <!-- Visualizer Tabs -->
+                  <div class="visualizer-tabs" style="display: flex; gap: 0.5rem; background: var(--color-border); padding: 2px; border-radius: 6px;">
+                    <button class="viz-tab active" id="tab-slider" style="background: var(--color-white); border: none; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 4px; cursor: pointer; transition: var(--transition-smooth); outline: none;">Interactive Slider</button>
+                    <button class="viz-tab" id="tab-grid" style="background: none; border: none; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 4px; cursor: pointer; transition: var(--transition-smooth); color: var(--color-text-muted); outline: none;">Grid View</button>
+                  </div>
+                </div>
+
+                <!-- Slider View (Default) -->
+                <div class="viz-content active" id="viz-slider-content">
+                  <div class="comparison-slider-container">
+                    <div class="slider-image-wrapper original-wrapper">
+                      <img id="slider-original" src="" alt="Original Lesion">
+                    </div>
+                    <div class="slider-image-wrapper overlay-wrapper">
+                      <img id="slider-overlay" src="" alt="Grad-CAM Overlay">
+                      <span class="slider-label overlay-label">AI Focus Overlay</span>
+                    </div>
+                    <span class="slider-label original-label">Original Image</span>
+                    <div class="slider-handle">
+                      <div class="slider-handle-line"></div>
+                      <div class="slider-handle-button">
+                        <i class="fa-solid fa-arrows-left-right"></i>
+                      </div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-range-control">
+                  </div>
+                </div>
+
+                <!-- Grid View (Optional) -->
+                <div class="viz-content" id="viz-grid-content" style="display: none;">
+                  <div class="gradcam-grid">
+                    <div class="gradcam-card">
+                      <span class="gradcam-card-title">Original Lesion</span>
+                      <img id="gradcam-original" class="gradcam-img" src="" alt="Original Lesion Image">
+                    </div>
+                    <div class="gradcam-card">
+                      <span class="gradcam-card-title">Attention Heatmap</span>
+                      <img id="gradcam-heatmap" class="gradcam-img" src="" alt="Grad-CAM Activation Heatmap">
+                    </div>
+                    <div class="gradcam-card">
+                      <span class="gradcam-card-title">Overlay Focus</span>
+                      <img id="gradcam-overlay" class="gradcam-img" src="" alt="Grad-CAM Superimposed Overlay">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gradcam-explanation-text" style="margin-top: 1rem;">
+                  <strong>Clinical Attention Focus:</strong> The heatmap overlays represent the spatial regions where the convolutional neural network isolated high-activation features (e.g. asymmetry, borders, color variance). Red focal zones indicate maximum model influence.
+                </div>
+              </div>
+
+              <!-- Actions Row -->
+              <div class="results-actions-row" style="display: flex; gap: 1rem; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <button class="btn btn-primary" id="btn-print-report" style="padding: 0.6rem 1.25rem; font-size: 0.9rem; flex: 1;">
+                  <i class="fa-solid fa-file-pdf"></i> Export PDF Report
+                </button>
+              </div>
+
+              <div class="mock-disclaimer" style="margin-top: 1.5rem;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <strong>Disclaimer:</strong> This is an AI-powered diagnostic helper tool. Not for medical diagnosis. Always consult a certified dermatologist for professional opinions.
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions & Tips Panel -->
+          <div class="upload-details-panel">
+            <!-- Patient & Lesion Context Card -->
+            <div class="info-card clinical-context-card" style="padding: 1.5rem; margin-top: 0;">
+              <h4 style="margin-bottom: 0.75rem;"><i class="fa-solid fa-clipboard-user" style="color: var(--color-primary);"></i> Patient & Lesion Context</h4>
+              <div class="form-row" style="display: flex; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                  <label for="patient-name" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.25rem; display: block; font-weight: 600;">Patient Name</label>
+                  <input type="text" id="patient-name" class="form-input" placeholder="e.g. John Doe" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); font-size: 0.85rem; outline: none; transition: var(--transition-smooth);">
+                </div>
+                <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                  <label for="patient-number" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.25rem; display: block; font-weight: 600;">Patient ID / Number</label>
+                  <input type="text" id="patient-number" class="form-input" placeholder="e.g. P12345" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); font-size: 0.85rem; outline: none; transition: var(--transition-smooth);">
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom: 0.75rem;">
+                <label for="patient-age" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.25rem; display: block; font-weight: 600;">Patient Age (Years)</label>
+                <input type="number" id="patient-age" class="form-input" placeholder="e.g. 45" min="0" max="120" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); font-size: 0.85rem; outline: none; transition: var(--transition-smooth);">
+              </div>
+              <div class="form-row" style="display: flex; gap: 0.75rem;">
+                <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                  <label for="patient-sex" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.25rem; display: block; font-weight: 600;">Sex</label>
+                  <select id="patient-sex" class="form-input" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); font-size: 0.85rem; background: var(--color-white); outline: none;">
+                    <option value="unknown">Unknown</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                  <label for="lesion-site" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.25rem; display: block; font-weight: 600;">Anatomic Site</label>
+                  <select id="lesion-site" class="form-input" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: var(--border-radius-sm); font-size: 0.85rem; background: var(--color-white); outline: none;">
+                    <option value="unknown">Unknown</option>
+                    <option value="back">Back</option>
+                    <option value="chest">Chest</option>
+                    <option value="abdomen">Abdomen</option>
+                    <option value="face">Face</option>
+                    <option value="neck">Neck</option>
+                    <option value="scalp">Scalp</option>
+                    <option value="ear">Ear</option>
+                    <option value="upper extremity">Arm / Upper extremity</option>
+                    <option value="lower extremity">Leg / Lower extremity</option>
+                    <option value="hand">Hand</option>
+                    <option value="foot">Foot</option>
+                    <option value="trunk">Trunk</option>
+                    <option value="genital">Genital</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="upload-instructions">
+              <h4><i class="fa-solid fa-circle-info" style="color: var(--color-primary);"></i> Image Quality Guide</h4>
+              <ul class="instruction-list">
+                <li><strong>Proper Focus:</strong> Ensure the lesion is sharply focused and not blurry.</li>
+                <li><strong>Good Lighting:</strong> Use natural daylight or a bright white lamp. Avoid harsh flash reflection.</li>
+                <li><strong>Framing:</strong> Center the mole in the middle of the photograph.</li>
+                <li><strong>Perspective:</strong> Take the photo directly from above (perpendicularly), not at an angle.</li>
+              </ul>
+            </div>
+            
+            <div class="info-card" style="padding: 1.5rem; margin-top: 0;">
+              <div class="card-icon" style="width: 40px; height: 40px; margin-bottom: 1rem; font-size: 1.1rem;">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h4 style="margin-bottom: 0.5rem;">Privacy & Encryption</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted);">
+                Images are processed entirely on your local sandbox environment. No medical data or images are transferred or stored in any remote system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about" style="background-color: var(--color-white); max-width: 100%;">
+      <div class="section-inner" style="max-width: 1400px; margin: 0 auto;">
+        <div class="section-header">
+          <span class="section-badge">About the Project</span>
+          <h2 class="section-title">AI Dermatological Screening</h2>
+          <p class="section-desc">
+            Combining machine learning models with clinical guidelines to aid early detection.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-img-box">
+            <div class="about-img-placeholder">
+              <i class="fa-solid fa-chart-line"></i>
+              <h3>Model Training & Accuracy</h3>
+              <p style="font-size: 0.9rem; margin-top: 0.5rem; max-width: 320px;">
+                Trained on dermatoscopic datasets to recognize distinct features like asymmetry, border irregularity, color variation, and diameter.
+              </p>
+            </div>
+          </div>
+          
+          <div class="about-text">
+            <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem;">Empowering Dermatologists & Patients</h3>
+            <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">
+              Dermatological clinics can leverage our automated skin screening assistant to speed up triage procedures. By analyzing high-resolution dermoscopic image frames, the algorithm isolates suspected anomalies and flags high-risk cases for rapid professional review.
+            </p>
+            <p style="color: var(--color-text-muted); margin-bottom: 2rem;">
+              Our deep neural network is constructed using state-of-the-art convolutional layers optimized for subtle skin lesion feature extractions, providing diagnostic hints within seconds.
+            </p>
+            <div style="display: flex; gap: 2rem;">
+              <div>
+                <h4 style="font-size: 2rem; color: var(--color-primary); margin-bottom: 0.25rem;">95%+</h4>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">Validation Accuracy</p>
+              </div>
+              <div>
+                <h4 style="font-size: 2rem; color: var(--color-primary); margin-bottom: 0.25rem;">&lt; 3s</h4>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">Analysis Time</p>
+              </div>
+              <div>
+                <h4 style="font-size: 2rem; color: var(--color-primary); margin-bottom: 0.25rem;">100%</h4>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">Private & Secure</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Disease Info Section -->
+    <section class="section" id="disease-info">
+      <div class="section-header">
+        <span class="section-badge">Disease Info</span>
+        <h2 class="section-title">Types of Skin Lesions</h2>
+        <p class="section-desc">
+          Understanding the classification categories commonly analyzed by clinical neural networks.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="card-icon">
+            <i class="fa-solid fa-virus"></i>
+          </div>
+          <h3 class="card-title">Melanoma</h3>
+          <p class="card-desc">
+            The most serious form of skin cancer, developing in cells called melanocytes. Characterized by irregular margins, multi-colored areas, and asymmetrical structure.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <i class="fa-solid fa-circle-dot"></i>
+          </div>
+          <h3 class="card-title">Basal Cell Carcinoma</h3>
+          <p class="card-desc">
+            A slow-growing cancer that originates in the outer layer of the skin. Often appears as a pearly, waxy bump or a flat, flesh-colored lesion.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <i class="fa-solid fa-bacteria"></i>
+          </div>
+          <h3 class="card-title">Nevus / Benign Lesion</h3>
+          <p class="card-desc">
+            Common benign skin growths, commonly referred to as moles. Uniformly circular, symmetrical, and consistent brown/tan pigmentation.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <i class="fa-solid fa-cookie"></i>
+          </div>
+          <h3 class="card-title">Benign Keratosis-like Lesion</h3>
+          <p class="card-desc">
+            Non-cancerous skin growths that commonly appear in older adults. They are typically brown, black, or light tan, and can have a waxy or scaly surface.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <h3 class="card-title">Actinic Keratosis</h3>
+          <p class="card-desc">
+            Pre-cancerous, rough, scaly patches that develop on sun-damaged skin. Often found on the face, lips, ears, back of the hands, or forearms.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <i class="fa-solid fa-droplet"></i>
+          </div>
+          <h3 class="card-title">Vascular Lesion</h3>
+          <p class="card-desc">
+            Harmless skin marks formed by clusters of blood vessels close to the surface, such as cherry angiomas, angiokeratomas, or pyogenic granulomas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <div class="section-header">
+        <span class="section-badge">Contact</span>
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-desc">
+          Have queries about clinical trials, model integration, or partnership opportunities? Reach out to us.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div>
+            <h3>Contact Information</h3>
+            <p style="font-size: 0.95rem; opacity: 0.8; margin-top: 0.5rem;">
+              Fill in the form to start a conversation, or reach our medical AI team directly.
+            </p>
+          </div>
+          
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <i class="fa-solid fa-phone"></i>
+              <span>+1 (555) 492-3829 (Clinical Helpdesk)</span>
+            </div>
+            <div class="contact-detail-item">
+              <i class="fa-solid fa-envelope"></i>
+              <span>support@skincancer-ai-detect.org</span>
+            </div>
+            <div class="contact-detail-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Dermatology AI Lab, Silicon Valley, CA</span>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub Project Repository">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="#" class="social-link" title="Twitter/X">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="#" class="social-link" title="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-container">
+          <h3>Send a Message</h3>
+          <form id="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully (Mock UI)!');">
+            <div class="form-group">
+              <label for="contact-name" class="form-label">Full Name</label>
+              <input type="text" id="contact-name" class="form-input" placeholder="Dr. John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email" class="form-label">Email Address</label>
+              <input type="email" id="contact-email" class="form-input" placeholder="john.doe@hospital.org" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-message" class="form-label">Message / Inquiry Details</label>
+              <textarea id="contact-message" class="form-input" style="height: 120px; resize: vertical;" placeholder="Specify details on partnership, model API, or feedback..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Skin Cancer Detection System</h3>
+        <p class="footer-desc">
+          An interactive digital health platform bringing next-generation computer vision tools to oncology and clinical dermatology.
+        </p>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#disease-info">Disease Info</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Resources & Documentation</h4>
+        <ul class="footer-links-list">
+          <li><a href="#" id="link-clinical-trials"><i class="fa-solid fa-file-pdf"></i> Clinical Trials Protocol</a></li>
+          <li><a href="#" id="link-model-api"><i class="fa-solid fa-code"></i> Model API Docs</a></li>
+          <li><a href="#" id="link-data-policy"><i class="fa-solid fa-lock"></i> Data Policy & HIPAA</a></li>
+          <li><a href="#" id="link-terms-use"><i class="fa-solid fa-scale-balanced"></i> Terms of Medical Use</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Skin Cancer Detection System Project. For educational and demo research purposes only.</p>
+      <div class="footer-bottom-links">
+        <a href="#" id="link-privacy-policy">Privacy Policy</a>
+        <a href="#" id="link-terms-service">Terms of Service</a>
+        <a href="#" id="link-cookie-settings">Cookie Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Success Toast Notification -->
+  <div class="success-notification" id="success-notification">
+    <i class="fa-solid fa-circle-check success-notification-icon"></i>
+    <span class="success-notification-text" id="success-notification-text">Analysis completed successfully!</span>
+  </div>
+
+  <!-- Printable Patient-Friendly Medical Report Template -->
+  <div id="printable-report" style="display: none; padding: 3rem; font-family: 'Plus Jakarta Sans', Arial, sans-serif; color: #000; background: #fff; max-width: 800px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f62fe; padding-bottom: 1.25rem; margin-bottom: 2rem;">
+      <div>
+        <h1 style="font-size: 1.8rem; margin: 0; color: #0f62fe; font-family: 'Outfit', sans-serif;">Patient Skin Diagnostic Summary</h1>
+        <p style="font-size: 0.85rem; margin: 0.25rem 0 0; color: #555;">AI-Assisted Dermatology Screening Service</p>
+      </div>
+      <div style="text-align: right;">
+        <p style="font-size: 0.85rem; margin: 0; font-weight: bold;" id="print-date">Date: 2026-06-15</p>
+        <p style="font-size: 0.85rem; margin: 0.25rem 0 0; color: #555;" id="print-case-id">Report ID: #123456</p>
+      </div>
+    </div>
+    
+    <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+      <!-- Patient Information -->
+      <div style="flex: 1; border: 1px solid #ddd; padding: 1.25rem; border-radius: 8px; background: #fafafa;">
+        <h3 style="margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; color: #161616; font-size: 1.05rem;">Patient Details</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <tr style="height: 2rem;"><td style="font-weight: bold; width: 45%; color: #555;">Name:</td><td id="print-patient-name" style="font-weight: bold;">John Doe</td></tr>
+          <tr style="height: 2rem;"><td style="font-weight: bold; color: #555;">Patient ID:</td><td id="print-patient-number" style="font-weight: bold;">P12345</td></tr>
+          <tr style="height: 2rem;"><td style="font-weight: bold; color: #555;">Age:</td><td id="print-patient-age">45 Years</td></tr>
+          <tr style="height: 2rem;"><td style="font-weight: bold; color: #555;">Sex:</td><td id="print-patient-sex">Male</td></tr>
+        </table>
+      </div>
+      
+      <!-- Diagnosis summary -->
+      <div style="flex: 1; border: 1px solid #ddd; padding: 1.25rem; border-radius: 8px; background: #fafafa;">
+        <h3 style="margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; color: #161616; font-size: 1.05rem;">Assessment Details</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <tr style="height: 2rem;"><td style="font-weight: bold; width: 45%; color: #555;">Lesion Site:</td><td id="print-lesion-site">Back</td></tr>
+          <tr style="height: 2rem;"><td style="font-weight: bold; color: #555;">Finding:</td><td id="print-assessment-result" style="font-weight: bold; color: #0f62fe;">Nevus (Benign Mole)</td></tr>
+          <tr style="height: 2rem;"><td style="font-weight: bold; color: #555;">Risk Classification:</td><td id="print-demographic-risk" style="text-transform: uppercase; font-weight: bold; color: #24a148;">Low Risk</td></tr>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Image for reference -->
+    <div style="display: flex; gap: 2rem; margin-bottom: 2.5rem; align-items: center; border: 1px solid #ddd; padding: 1.25rem; border-radius: 8px;">
+      <div style="text-align: center;">
+        <img id="print-img-original" src="" style="width: 180px; height: 180px; object-fit: cover; border-radius: 6px; border: 1px solid #ccc; display: block;">
+        <span style="font-size: 0.75rem; color: #6f6f6f; margin-top: 0.5rem; display: block;">Analyzed Skin Area</span>
+      </div>
+      <div style="flex: 1; text-align: left;">
+        <h4 style="margin-top: 0; margin-bottom: 0.5rem; color: #161616; font-size: 1rem;">Finding Description & Action Guide</h4>
+        <p id="print-patient-explanation" style="font-size: 0.9rem; color: #393939; line-height: 1.5; margin: 0 0 1rem 0;">
+          The scan has identified this lesion as a **Nevus (Benign Mole)**. Moles are very common skin growths and are benign (non-cancerous).
+        </p>
+        <div id="print-patient-recommendation" style="padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; display: inline-block;">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Professional Validation footer -->
+    <div style="border-top: 1px solid #ddd; padding-top: 1.25rem; margin-top: 2rem; font-size: 0.75rem; color: #555; text-align: justify; line-height: 1.4;">
+      <p style="margin-bottom: 0.5rem;"><strong>Important Notice for Patients:</strong> This report is generated by a clinical machine learning model trained to screen dermatological conditions. It is provided for informational and educational support purposes and **does not replace a professional medical consultation**. Moles and lesions can change over time. Please continue to perform regular self-checks and share these results with your general physician or a certified dermatologist.</p>
+    </div>
+  </div>
+
+  <!-- Modal Popup for Resources -->
+  <div class="resource-modal-overlay" id="resource-modal">
+    <div class="resource-modal-card">
+      <button class="resource-modal-close" id="resource-modal-close" aria-label="Close modal">&times;</button>
+      <h3 class="resource-modal-title" id="resource-modal-title">Resource Title</h3>
+      <div class="resource-modal-body" id="resource-modal-body">
+        <!-- Details populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- App Logic -->
+  <script src="config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

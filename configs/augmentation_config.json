@@ -1,0 +1,18 @@
+{
+    "rotation_range": 0.0556,
+    "zoom_range": 0.15,
+    "brightness_range": 0.15,
+    "contrast_range": 0.15,
+    "width_shift_range": 0.1,
+    "height_shift_range": 0.1,
+    "fill_mode": "reflect",
+    "crop_padding": 16,
+    "apply_probability": 0.5,
+    "minority_classes": ["df", "vasc", "akiec", "bcc", "mel"],
+    "majority_classes": ["nv", "bkl"],
+    "class_balancing": {
+        "enabled": true,
+        "strategy": "oversample",
+        "target_samples_per_minority_class": 2000
+    }
+}
