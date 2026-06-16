@@ -73,7 +73,17 @@ class LesionPredictor:
         if not self.model_path.exists():
             raise InferenceError(f"Model checkpoint not found at {self.model_path.resolve()}")
             
-        if TENSORFLOW_AVAILABLE:
+        # Check if the file is a JSON text file (our mock checkpoint)
+        is_mock_json = False
+        try:
+            with open(self.model_path, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+            if isinstance(meta, dict) and "model_architecture" in meta:
+                is_mock_json = True
+        except Exception:
+            pass
+
+        if TENSORFLOW_AVAILABLE and not is_mock_json:
             try:
                 logger.info(f"Loading TensorFlow Keras model from {self.model_path}...")
                 return tf.keras.models.load_model(str(self.model_path))
@@ -82,14 +92,16 @@ class LesionPredictor:
         else:
             # Audit the mock checkpoint JSON file structure to make sure it's valid
             try:
-                with open(self.model_path, "r", encoding="utf-8") as f:
-                    meta = json.load(f)
+                if not is_mock_json:
+                    with open(self.model_path, "r", encoding="utf-8") as f:
+                        meta = json.load(f)
                 if meta.get("model_architecture") != "efficientnet_b0_transfer_learning":
                     raise InferenceError("Invalid model architecture metadata detected in checkpoint file.")
                 logger.info("Checked mock checkpoint file structure successfully (Verification Mode).")
                 return meta
             except Exception as e:
                 raise InferenceError(f"Failed to parse mock model file: {str(e)}")
+
                 
     def preprocess_image(self, image_path: Path) -> np.ndarray:
         """
@@ -137,7 +149,7 @@ class LesionPredictor:
         # Preprocess and validate
         img_batch = self.preprocess_image(image_path)
         
-        if TENSORFLOW_AVAILABLE:
+        if TENSORFLOW_AVAILABLE and not isinstance(self.model, dict):
             # Predict using TF
             pred_probs = self.model.predict(img_batch, verbose=0)[0]
         else:

@@ -20,7 +20,7 @@ class GradCAMGenerator:
     """
     def __init__(self, model=None):
         self.model = model
-        self.final_conv_layer = self._find_final_conv_layer() if model and TENSORFLOW_AVAILABLE else None
+        self.final_conv_layer = self._find_final_conv_layer() if model and TENSORFLOW_AVAILABLE and not isinstance(model, dict) else None
 
     def _find_final_conv_layer(self):
         """Programmatically locates the final 2D convolutional layer in the network."""
@@ -54,7 +54,7 @@ class GradCAMGenerator:
         # Resize to standard model shape (224, 224)
         original_resized = cv2.resize(img, (224, 224))
 
-        if TENSORFLOW_AVAILABLE and self.model is not None:
+        if TENSORFLOW_AVAILABLE and self.model is not None and not isinstance(self.model, dict):
             try:
                 # Execution path for real Keras models
                 heatmap = self._compute_real_gradcam(original_resized, target_class_idx)
