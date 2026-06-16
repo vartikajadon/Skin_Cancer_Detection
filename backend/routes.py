@@ -17,12 +17,17 @@ logger = logging.getLogger(__name__)
 # Define blueprint
 api_bp = Blueprint('api', __name__)
 
+backend_dir = Path(__file__).resolve().parent
+root_dir = backend_dir.parent
+IS_VERCEL = "VERCEL" in os.environ
+base_write_dir = Path("/tmp") if IS_VERCEL else Path(".")
+
 # Configure uploads directory reference
-UPLOAD_DIR = Path("uploads")
+UPLOAD_DIR = base_write_dir / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Instantiate the OOD detector
-ood_detector = OODDetector()
+ood_detector = OODDetector(str(root_dir / "models" / "skin_detector.keras"))
 
 CLASSIFICATION_THRESHOLD = 0.70
 

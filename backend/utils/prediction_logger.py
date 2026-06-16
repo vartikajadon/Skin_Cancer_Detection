@@ -15,9 +15,13 @@ class PredictionLogger:
     and logs diagnosis class, confidence score, and top-3 probabilities.
     """
     def __init__(self, log_dir: Path = None):
+        IS_VERCEL = "VERCEL" in os.environ
         if log_dir is None:
-            # Default to root directory / processed
-            self.log_dir = Path(__file__).resolve().parent.parent.parent / "processed"
+            if IS_VERCEL:
+                self.log_dir = Path("/tmp/processed")
+            else:
+                # Default to root directory / processed
+                self.log_dir = Path(__file__).resolve().parent.parent.parent / "processed"
         else:
             self.log_dir = Path(log_dir)
             

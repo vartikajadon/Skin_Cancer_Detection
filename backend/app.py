@@ -24,10 +24,18 @@ from routes import api_bp
 from services.prediction_service import initialize_prediction_service
 
 def create_app(
-    model_path: str = "models/efficientnet_b0_best.keras",
-    encoder_path: str = "processed/label_encoder.json"
+    model_path: str = None,
+    encoder_path: str = None
 ) -> Flask:
     """Flask Application Factory."""
+    if model_path is None:
+        model_path = str(root_dir / "models" / "efficientnet_b0_best.keras")
+    if encoder_path is None:
+        encoder_path = str(root_dir / "processed" / "label_encoder.json")
+        
+    IS_VERCEL = "VERCEL" in os.environ
+    base_write_dir = "/tmp" if IS_VERCEL else os.getcwd()
+
     # Serve frontend assets directly from the frontend directory
     frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
     app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
@@ -44,7 +52,7 @@ def create_app(
         return app.send_static_file('index.html')
     
     # 3. Configure Upload parameters
-    app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
+    app.config['UPLOAD_FOLDER'] = os.path.join(base_write_dir, 'uploads')
     app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024 # 10MB limit
     
     # Create folders if missing
@@ -59,7 +67,7 @@ def create_app(
         # we let app start and routes will return 500 when calling uninitialized model.
         
     # Serve static files from gradcam_outputs directory
-    gradcam_outputs_dir = os.path.join(os.getcwd(), 'gradcam_outputs')
+    gradcam_outputs_dir = os.path.join(base_write_dir, 'gradcam_outputs')
     os.makedirs(gradcam_outputs_dir, exist_ok=True)
     
     @app.route('/gradcam_outputs/<path:filename>')

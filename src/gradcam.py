@@ -43,7 +43,9 @@ class GradCAMGenerator:
             raise FileNotFoundError(f"Source image not found: {image_path.resolve()}")
 
         # Ensure output directory exists
-        output_dir = Path("gradcam_outputs")
+        IS_VERCEL = "VERCEL" in os.environ
+        base_write_dir = Path("/tmp") if IS_VERCEL else Path(".")
+        output_dir = base_write_dir / "gradcam_outputs"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # 1. Load original image
